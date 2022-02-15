@@ -31,6 +31,7 @@ DEBOUNCE_TYPE                      = asym_eager_defer_pk
 EEPROM_DRIVER                      = i2c
 ENCODER_ENABLE                     = yes
 EXTRAKEY_ENABLE                    = yes
+TAP_DANCE_ENABLE                   = yes
 # Set KEYBOARD_SHARED_EP = yes if you run out of usb endpoints.
 # This setting is mandatory with VIA on GD32VF103/RISC-V,
 # because the MCU has a limited amount of USB endpoints.
@@ -47,5 +48,5 @@ RGB_MATRIX_DRIVER                  = WS2812
 SERIAL_DRIVER                      = usart
 SPLIT_KEYBOARD                     = yes
 VIA_ENABLE                         = no
-WPM_ENABLE                         = no
+WPM_ENABLE                         = yes
 WS2812_DRIVER                      = pwm

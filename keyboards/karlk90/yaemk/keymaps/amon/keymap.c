@@ -7,7 +7,7 @@ uint16_t alt_tab_timer = 0;
 bool is_page_scroll_layer = false;
 bool is_alt_tab_layer = false;
 
-char wpm_str[10];
+int current_wpm = 0;
 
 enum Layers {
     _QWERTY,
@@ -358,10 +358,11 @@ void render_display(void) {
     if (is_keyboard_master()) {
         render_status(); // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     } else {
-        render_anim();
-        oled_set_cursor(0,6);
-        oled_write(get_u8_str(get_current_wpm(), ' '), false);
-        oled_write(wpm_str, false);
+        /* render_anim(); */
+        /* oled_set_cursor(0,6); */
+        current_wpm = get_current_wpm();
+        oled_write_P(PSTR("WPM: "), false);
+        oled_write(current_wpm, false);
     }
 }
 #endif

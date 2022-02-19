@@ -137,6 +137,7 @@
 #define SERIAL_USART_FULL_DUPLEX
 #define SERIAL_USART_TIMEOUT 5
 #define SERIAL_USART_CR2 0x0  // 1 stop bit is enough
+#define SPLIT_WPM_ENABLE
 
 #if defined(__riscv)
 #    define SERIAL_USART_SPEED (GD32_PCLK1 >> 4)  // Use highest possible baudrate.

@@ -92,103 +92,103 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
 /* Fast Matrix Port Scanning */
 
-#include "quantum.h"
-#include <stdint.h>
-#include <stdbool.h>
-#include "matrix.h"
-#include "split_util.h"
+// #include "quantum.h"
+// #include <stdint.h>
+// #include <stdbool.h>
+// #include "matrix.h"
+// #include "split_util.h"
 
-#define ROWS_PER_HAND (MATRIX_ROWS / 2)
+// #define ROWS_PER_HAND (MATRIX_ROWS / 2)
 
-static const pin_t row_pins[ROWS_PER_HAND] = MATRIX_ROW_PINS;
-static const pin_t col_pins[MATRIX_COLS]   = MATRIX_COL_PINS;
+// static const pin_t row_pins[ROWS_PER_HAND] = MATRIX_ROW_PINS;
+// static const pin_t col_pins[MATRIX_COLS]   = MATRIX_COL_PINS;
 
-void matrix_init_pins(void) {
-    for (size_t i = 0; i < MATRIX_COLS; i++) {
-        setPinInputHigh(col_pins[i]);
-    }
-    for (size_t i = 0; i < ROWS_PER_HAND; i++) {
-/* We deliberatly choose "slower" push pull pins,
- * those are fast enough but with lower driving currents
- * should produce less EMI noise on the lines. */
-#if defined(__riscv)
-        /* This is actually implemented as a 2MHZ PP output. */
-        palSetLineMode(row_pins[i], PAL_MODE_UNCONNECTED);
-#else
-        palSetLineMode(row_pins[i], (PAL_MODE_OUTPUT_PUSHPULL | PAL_STM32_OSPEED_LOWEST));
-#endif
-        writePinHigh(row_pins[i]);
-    }
-}
+// void matrix_init_pins(void) {
+//     for (size_t i = 0; i < MATRIX_COLS; i++) {
+//         setPinInputHigh(col_pins[i]);
+//     }
+//     for (size_t i = 0; i < ROWS_PER_HAND; i++) {
+// /* We deliberatly choose "slower" push pull pins,
+//  * those are fast enough but with lower driving currents
+//  * should produce less EMI noise on the lines. */
+// #if defined(__riscv)
+//         /* This is actually implemented as a 2MHZ PP output. */
+//         palSetLineMode(row_pins[i], PAL_MODE_UNCONNECTED);
+// #else
+//         palSetLineMode(row_pins[i], (PAL_MODE_OUTPUT_PUSHPULL | PAL_STM32_OSPEED_LOWEST));
+// #endif
+//         writePinHigh(row_pins[i]);
+//     }
+// }
 
-void matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
-    /* Drive row pin low. */
-    writePinLow(row_pins[current_row]);
-    while (readPin(row_pins[current_row]) != 0)
-        ;
+// void matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
+//     /* Drive row pin low. */
+//     writePinLow(row_pins[current_row]);
+//     while (readPin(row_pins[current_row]) != 0)
+//         ;
 
-    uint16_t porta = palReadPort(GPIOA);
-    uint16_t portb = palReadPort(GPIOB);
+//     uint16_t porta = palReadPort(GPIOA);
+//     uint16_t portb = palReadPort(GPIOB);
 
-    /* Drive row pin high again. */
-    writePinHigh(row_pins[current_row]);
+//     /* Drive row pin high again. */
+//     writePinHigh(row_pins[current_row]);
 
-    /* Order of pins is: B15, B14, B13, B2, B1, B0, A7, A2
-       Pin is active low, therefore we have to invert the result. */
-    matrix_row_t cols = ~(((porta & 0x4) >> 2) | ((porta & 0x80) >> 6) | ((portb & 0x7) << 2) | ((portb & 0xE000) >> 8));
+//     /* Order of pins is: B15, B14, B13, B2, B1, B0, A7, A2
+//        Pin is active low, therefore we have to invert the result. */
+//     matrix_row_t cols = ~(((porta & 0x4) >> 2) | ((porta & 0x80) >> 6) | ((portb & 0x7) << 2) | ((portb & 0xE000) >> 8));
 
-    /* Reverse the order of columns for left hand as the board is flipped. */
-    if (isLeftHand) {
-#if defined(__arm__)
-        /* rbit assembly reverses bit order of 32bit registers. */
-        uint32_t temp = cols;
-        __asm__("rbit %0, %1" : "=r"(temp) : "r"(temp));
-        cols = temp >> 24;
-#else
-        /* RISC-V bit manipulation extension not present. Use bit-hack.
-        https://graphics.stanford.edu/~seander/bithacks.html#ReverseByteWith32Bits */
-        cols = (matrix_row_t)(((cols * 0x0802LU & 0x22110LU) | (cols * 0x8020LU & 0x88440LU)) * 0x10101LU >> 16);
-#endif
-    }
+//     /* Reverse the order of columns for left hand as the board is flipped. */
+//     if (isLeftHand) {
+// #if defined(__arm__)
+//         /* rbit assembly reverses bit order of 32bit registers. */
+//         uint32_t temp = cols;
+//         __asm__("rbit %0, %1" : "=r"(temp) : "r"(temp));
+//         cols = temp >> 24;
+// #else
+//         /* RISC-V bit manipulation extension not present. Use bit-hack.
+//         https://graphics.stanford.edu/~seander/bithacks.html#ReverseByteWith32Bits */
+//         cols = (matrix_row_t)(((cols * 0x0802LU & 0x22110LU) | (cols * 0x8020LU & 0x88440LU)) * 0x10101LU >> 16);
+// #endif
+//     }
 
-    current_matrix[current_row] = cols;
+//     current_matrix[current_row] = cols;
 
-    /* Wait until col pins are high again or 'timer' expired. */
-    size_t counter = 0xFF;
-    while (((palReadGroup(GPIOA, 0x84, 0) != 0x84) || ((palReadGroup(GPIOB, 0xE007, 0) != 0xE007))) && counter != 0) {
-        counter--;
-    }
-}
+//     /* Wait until col pins are high again or 'timer' expired. */
+//     size_t counter = 0xFF;
+//     while (((palReadGroup(GPIOA, 0x84, 0) != 0x84) || ((palReadGroup(GPIOB, 0xE007, 0) != 0xE007))) && counter != 0) {
+//         counter--;
+//     }
+// }
 
-/* RISC-V Trapping function stub for Debugging */
+// /* RISC-V Trapping function stub for Debugging */
 
-#if defined(__riscv)
+// #if defined(__riscv)
 
-#    pragma GCC push_options
-#    pragma GCC optimize("O0")
+// #    pragma GCC push_options
+// #    pragma GCC optimize("O0")
 
-uintptr_t handle_trap(uintptr_t mcause, uintptr_t sp, uintptr_t mdcause, uintptr_t msubm) {
-    uint32_t             m_epc        = __RV_CSR_READ(mepc);
-    uint32_t             m_tval       = __RV_CSR_READ(mtval);
-    uint32_t             m_bad        = __RV_CSR_READ(mbadaddr);
-    CSR_MSTATUS_Type     m_status     = {.d = __RV_CSR_READ(mstatus)};
-    CSR_MCAUSE_Type      m_cause      = {.d = mcause};
-    CSR_MSAVESTATUS_Type m_savestatus = {.w = __RV_CSR_READ(CSR_MSAVESTATUS)};
-    CSR_MSUBM_Type       m_subm       = {.d = msubm};
+// uintptr_t handle_trap(uintptr_t mcause, uintptr_t sp, uintptr_t mdcause, uintptr_t msubm) {
+//     uint32_t             m_epc        = __RV_CSR_READ(mepc);
+//     uint32_t             m_tval       = __RV_CSR_READ(mtval);
+//     uint32_t             m_bad        = __RV_CSR_READ(mbadaddr);
+//     CSR_MSTATUS_Type     m_status     = {.d = __RV_CSR_READ(mstatus)};
+//     CSR_MCAUSE_Type      m_cause      = {.d = mcause};
+//     CSR_MSAVESTATUS_Type m_savestatus = {.w = __RV_CSR_READ(CSR_MSAVESTATUS)};
+//     CSR_MSUBM_Type       m_subm       = {.d = msubm};
 
-    (void)m_epc;
-    (void)m_tval;
-    (void)m_bad;
-    (void)m_status;
-    (void)m_cause;
-    (void)m_savestatus;
-    (void)m_subm;
+//     (void)m_epc;
+//     (void)m_tval;
+//     (void)m_bad;
+//     (void)m_status;
+//     (void)m_cause;
+//     (void)m_savestatus;
+//     (void)m_subm;
 
-    while (1)
-        ;
+//     while (1)
+//         ;
 
-    return 0;
-}
-#    pragma GCC pop_options
+//     return 0;
+// }
+// #    pragma GCC pop_options
 
-#endif
+// #endif

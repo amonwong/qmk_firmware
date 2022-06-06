@@ -168,8 +168,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #if !defined(OLED_UPDATE_INTERVAL) && defined(SPLIT_KEYBOARD)
-// #    define OLED_UPDATE_INTERVAL 50
-#define OLED_UPDATE_INTERVAL 10
+#    define OLED_UPDATE_INTERVAL 50
+// #define OLED_UPDATE_INTERVAL 10
 #endif
 
 typedef struct __attribute__((__packed__)) {

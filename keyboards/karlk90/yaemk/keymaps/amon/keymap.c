@@ -219,7 +219,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 }
-#endif
 
 #if defined(OLED_ENABLE)
 
@@ -851,7 +850,7 @@ void render_display(void) {
         /* KEYBOARD PET RENDER END */
     }
 }
-
+#endif
 
 #ifdef ENCODER_ENABLE
 bool encoder_update_user(uint8_t index, bool clockwise) {

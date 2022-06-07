@@ -204,7 +204,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 isSneaking = true;
             } else {
-                isSneaking = false;
+                isSneaking = true;
             }
             break;
         case KC_SPC:

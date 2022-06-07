@@ -200,7 +200,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #    define MIN_RUN_SPEED       40
 
 /* advanced settings */
-#    define ANIM_FRAME_DURATION 200  // how long each frame lasts in ms
+#    define ANIM_FRAME_DURATION 400  // how long each frame lasts in ms
 #    define ANIM_SIZE           1024   // number of bytes in array. If you change sprites, minimize for adequate firmware size. max is 1024
 
 /* timers */

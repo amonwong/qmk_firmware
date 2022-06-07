@@ -116,7 +116,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             }
     #endif
     }
-    return true;
+    return process_record_user(keycode, record);
 }
 
 /* Fast Matrix Port Scanning */

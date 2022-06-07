@@ -7,6 +7,10 @@ uint16_t alt_tab_timer = 0;
 bool is_page_scroll_layer = false;
 bool is_alt_tab_layer = false;
 
+bool isSneaking = false;
+bool isJumping  = false;
+bool showedJump = true;
+
 enum Layers {
     _QWERTY,
     _2WERTY,
@@ -239,9 +243,6 @@ uint8_t current_frame = 0;
 int   current_wpm = 0;
 led_t led_usb_state;
 
-bool isSneaking = false;
-bool isJumping  = false;
-bool showedJump = true;
 
 /* logic */
 static void render_luna(int LUNA_X, int LUNA_Y) {

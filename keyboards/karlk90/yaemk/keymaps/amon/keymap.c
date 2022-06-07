@@ -192,35 +192,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    if (!process_record_user(keycode, record)) {
-        return false;
-    }
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-    #if defined(RGB_MATRIX_ENABLE)
-        case RGB_TOG:
+        /* KEYBOARD PET STATUS START */
+        case KC_LCTL:
+        case KC_RCTL:
             if (record->event.pressed) {
-                switch (rgb_matrix_get_flags()) {
-                    case LED_FLAG_ALL: {
-                        rgb_matrix_set_flags(LED_FLAG_KEYLIGHT);
-                    } break;
-                    case LED_FLAG_KEYLIGHT: {
-                        rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
-                    } break;
-                    case LED_FLAG_UNDERGLOW: {
-                        rgb_matrix_set_flags(LED_FLAG_NONE);
-                        rgb_matrix_disable();
-                    } break;
-                    default: {
-                        rgb_matrix_set_flags(LED_FLAG_ALL);
-                        rgb_matrix_enable();
-                    } break;
-                }
+                isSneaking = true;
+            } else {
+                isSneaking = false;
             }
-    #endif
+            break;
+        case KC_SPC:
+            if (record->event.pressed) {
+                isJumping  = true;
+                showedJump = false;
+            } else {
+                isJumping = false;
+            }
+            break;
+        /* KEYBOARD PET STATUS END */
     }
-    return process_record_user(keycode, record);
+    return true;
 }
+#endif
 
 #if defined(OLED_ENABLE)
 
@@ -856,30 +851,6 @@ void render_display(void) {
     }
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        /* KEYBOARD PET STATUS START */
-        case KC_LCTL:
-        case KC_RCTL:
-            if (record->event.pressed) {
-                isSneaking = true;
-            } else {
-                isSneaking = false;
-            }
-            break;
-        case KC_SPC:
-            if (record->event.pressed) {
-                isJumping  = true;
-                showedJump = false;
-            } else {
-                isJumping = false;
-            }
-            break;
-        /* KEYBOARD PET STATUS END */
-    }
-    return true;
-}
-#endif
 
 #ifdef ENCODER_ENABLE
 bool encoder_update_user(uint8_t index, bool clockwise) {

@@ -196,30 +196,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        /* KEYBOARD PET STATUS START */
-        case KC_LCTL:
-        case KC_RCTL:
-            if (record->event.pressed) {
-                isSneaking = true;
-            } else {
-                isSneaking = true;
-            }
-            break;
-        case KC_SPC:
-            if (record->event.pressed) {
-                isJumping  = true;
-                showedJump = false;
-            } else {
-                isJumping = false;
-            }
-            break;
-        /* KEYBOARD PET STATUS END */
-    }
-    return true;
-}
-
 #if defined(OLED_ENABLE)
 
 /* KEYBOARD PET START */
@@ -891,6 +867,32 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 
     return false;
 }
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        /* KEYBOARD PET STATUS START */
+        case KC_LCTL:
+        case KC_RCTL:
+            if (record->event.pressed) {
+                isSneaking = true;
+            } else {
+                isSneaking = true;
+            }
+            break;
+        case KC_SPC:
+            if (record->event.pressed) {
+                isJumping  = true;
+                showedJump = false;
+            } else {
+                isJumping = false;
+            }
+            break;
+        /* KEYBOARD PET STATUS END */
+    }
+    return process_record_user(keycode, record);
+}
+
+
 void matrix_scan_user(void) {
     if (is_alt_tab_active) {
         if (timer_elapsed(alt_tab_timer) > 1250) {
@@ -900,6 +902,7 @@ void matrix_scan_user(void) {
         }
 }
 #endif
+
 
 // Determine the current tap dance state
 uint8_t cur_dance(qk_tap_dance_state_t *state) {

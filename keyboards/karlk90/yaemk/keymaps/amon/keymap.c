@@ -65,8 +65,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
    [_QWERTY] = LAYOUT(
      KC_ESC      , KC_1      , KC_2      , KC_3       , KC_4       , KC_5       , LCTL(KC_GRV)  ,                                               KC_NUM        , KC_6    , KC_7    , KC_8     , KC_9   , KC_0     , KC_BSPC   ,
-     KC_TAB      , KC_Q      , KC_W      , KC_E       , KC_R       , KC_T       , _______       ,                                               _______       , KC_Y    , KC_U    , KC_I     , KC_O   , KC_P     , KC_LBRC   ,
-     KC_LSFT     , KC_A      , KC_S      , KC_D       , KC_F       , KC_G       , _______       ,                                               _______       , KC_H    , KC_J    , KC_K     , KC_L   , KC_SCLN  , KC_QUOT   ,
+     KC_TAB      , KC_Q      , KC_W      , KC_E       , KC_R       , KC_T       , TG(_QWERTY)       ,                                               _______       , KC_Y    , KC_U    , KC_I     , KC_O   , KC_P     , KC_LBRC   ,
+     KC_LSFT     , KC_A      , KC_S      , KC_D       , KC_F       , KC_G       , TG(_2WERTY)       ,                                               _______       , KC_H    , KC_J    , KC_K     , KC_L   , KC_SCLN  , KC_QUOT   ,
      KC_LCTL     , KC_Z      , KC_X      , KC_C       , KC_V       , KC_B       , A(KC_SPC)     , KC_CAPS                , LGUI(KC_TAB)       , S(KC_PSCR)    , KC_N    , KC_M    , KC_COMM  , KC_DOT , KC_SLSH  , KC_MINS   ,
                                      TD(MUTE_LAYER2)  , KC_LALT    , KC_LGUI    , KC_SPC        , LT(_LOWER, KC_ENT)     , LT(_LOWER, KC_ENT) , LT(_RAISE, KC_SPC), KC_RGUI , KC_RALT , TD(ENCODER_LAYER)
   ),
@@ -87,11 +87,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `-----------------------------------'  `----------------------------------'
  */
    [_2WERTY] = LAYOUT(
-     KC_ESC      , KC_1      , KC_2      , KC_3       , KC_4       , KC_5       , LCTL(KC_GRV)  ,                                               KC_ESC         , KC_6    , KC_7    , KC_8     , KC_9   , KC_0     , KC_BSPC   ,
-     KC_TAB      , KC_Q      , KC_W      , KC_E       , KC_R       , KC_T       , _______       ,                                               _______        , KC_Y    , KC_U    , KC_I     , KC_O   , KC_P     , KC_LBRC   ,
-     KC_LSFT     , KC_A      , KC_S      , KC_D       , KC_F       , KC_G       , _______       ,                                               _______        , KC_H    , KC_J    , KC_K     , KC_L   , KC_SCLN  , KC_QUOT   ,
-     KC_LCTL     , KC_Z      , KC_X      , KC_C       , KC_V       , KC_B       , A(KC_SPC)     , KC_CAPS                , LGUI(KC_TAB)       , S(KC_PSCR)     , KC_N    , KC_M    , KC_COMM  , KC_DOT , KC_SLSH  , KC_MINS   ,
-                                     TD(MUTE_LAYER2)  , KC_LCTL    , KC_LCMD    , KC_SPC        , LT(_LOWER, KC_ENT)     , LT(_LOWER, KC_ENT) , LT(_RAISE, KC_SPC), KC_RCMD , KC_RALT , TD(ENCODER_LAYER)
+     KC_ESC      , KC_F1      , KC_F2      , KC_F3       , KC_F4       , KC_F5       , LCTL(KC_GRV)  ,                                               KC_ESC         , KC_F6    , KC_F7    , KC_F8     , KC_F9   , KC_F10     , KC_BSPC   ,
+     KC_TAB      , KC_Q      , KC_W      , KC_E       , KC_R       , KC_T       , TG(_QWERTY)       ,                                               _______        , KC_Y    , KC_U    , KC_I     , KC_O   , KC_P     , KC_LBRC   ,
+     KC_LSFT     , KC_A      , KC_S      , KC_D       , KC_F       , KC_G       , TG(_2WERTY)       ,                                               _______        , KC_H    , KC_J    , KC_K     , KC_L   , KC_SCLN  , KC_QUOT   ,
+     KC_LCMD     , KC_Z      , KC_X      , KC_C       , KC_V       , KC_B       , A(KC_SPC)     , KC_CAPS                , LGUI(KC_TAB)       , S(KC_PSCR)     , KC_N    , KC_M    , KC_COMM  , KC_DOT , KC_SLSH  , KC_MINS   ,
+                                     TD(MUTE_LAYER2)  , KC_LCTL    , KC_LALT    , KC_SPC        , LT(_LOWER, KC_ENT)     , LT(_LOWER, KC_ENT) , LT(_RAISE, KC_SPC), KC_RCMD , KC_RALT , TD(ENCODER_LAYER)
   ),
 
 /*
@@ -112,8 +112,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
    [_LOWER] = LAYOUT(
      KC_TILDE    , KC_EXLM   , KC_AT     , KC_HASH    , KC_DLR     , KC_PERC    , LCTL(KC_GRV)  ,                                          KC_ESC       , KC_CIRC , KC_AMPR , KC_ASTR  , KC_LPRN, KC_RPRN  , KC_BSPC      ,
-     KC_TAB      , KC_GRV    , KC_MINS   , KC_UNDS    , KC_EQUAL   , KC_PLUS    , _______       ,                                          _______      , _______ , KC_LCBR , KC_RCBR  , KC_LBRC, KC_RBRC  , _______      ,
-     KC_LSFT     , _______   , _______   , _______    , _______    , _______    , _______       ,                                          _______      , _______ , _______ , _______  , _______, _______  , _______      ,
+     KC_TAB      , KC_GRV    , KC_MINS   , KC_UNDS    , KC_EQUAL   , KC_PLUS    , TG(_QWERTY)       ,                                          _______      , _______ , KC_LCBR , KC_RCBR  , KC_LBRC, KC_RBRC  , _______      ,
+     KC_LSFT     , _______   , _______   , _______    , _______    , _______    , TG(_2WERTY)       ,                                          _______      , _______ , _______ , _______  , _______, _______  , _______      ,
      KC_LCTL     , _______   , _______   , _______    , _______    , _______    , A(KC_SPC)     , KC_CAPS                   , MO(_ADJUST), _______      , KC_UP   , _______ , _______  , _______, KC_BSLS  , KC_EQL       ,
                                      TD(MUTE_LAYER2)  , KC_LCTL    , KC_LCMD    , KC_SPC        , LT(_LOWER, KC_ENT)        , _______    , KC_LEFT      , KC_DOWN , KC_RGHT , TD(ENCODER_LAYER)
   ),
@@ -136,8 +136,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
    [_RAISE] = LAYOUT(
      _______    , _______   , _______   , _______    , _______   , _______    , LCTL(KC_GRV) ,                                              KC_ESC        , KC_NUM  , KC_SLSH , KC_ASTR , KC_MINS, _______  , KC_BSPC     ,
-     KC_TAB     , _______   , KC_MPRV   , KC_MPLY    , KC_MNXT   , KC_VOLU    , _______      ,                                              _______       , KC_7    , KC_8    , KC_9    , KC_PLUS, _______  , _______     ,
-     KC_LSFT    , _______   , _______   , _______    , KC_MUTE   , KC_VOLD    , _______      ,                                              _______       , KC_4    , KC_5    , KC_6    , KC_ENT , _______  , _______     ,
+     KC_TAB     , _______   , KC_MPRV   , KC_MPLY    , KC_MNXT   , KC_VOLU    , TG(_QWERTY)      ,                                              _______       , KC_7    , KC_8    , KC_9    , KC_PLUS, _______  , _______     ,
+     KC_LSFT    , _______   , _______   , _______    , KC_MUTE   , KC_VOLD    , TG(_2WERTY)      ,                                              _______       , KC_4    , KC_5    , KC_6    , KC_ENT , _______  , _______     ,
      KC_LCTL    , _______   , _______   , _______    , _______   , _______    , _______      , _______                     , MO(_ADJUST)  , _______       , KC_1    , KC_2    , KC_3    , _______, _______  , _______     ,
                                      TD(MUTE_LAYER2) , _______   , _______    , _______      , _______                     , _______      , _______       , KC_0    , _______ , TD(ENCODER_LAYER)
   ),
@@ -161,8 +161,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
    [_ADJUST] = LAYOUT(
      _______    , KC_F1     , KC_F2     , KC_F3      , KC_F4     , KC_F5      , LCTL(KC_GRV)  ,                                           KC_ESC        , KC_F6   , KC_F7   , KC_F8   , KC_F9  , KC_F10   , _______      ,
-     RGB_TOG    , RGB_VAI   , RGB_SAI   , RGB_HUI    , RGB_SPI   , RGB_MOD    , _______       ,                                           _______       , _______ , _______ , _______ , KC_F11 , KC_F12   , _______      ,
-     _______    , RGB_VAD   , RGB_SAD   , RGB_HUD    , RGB_SPD   , RGB_RMOD   , _______       ,                                           _______       , _______ , _______ , _______ , _______, _______  , _______      ,
+     RGB_TOG    , RGB_VAI   , RGB_SAI   , RGB_HUI    , RGB_SPI   , RGB_MOD    , TG(_QWERTY)       ,                                           _______       , _______ , _______ , _______ , KC_F11 , KC_F12   , _______      ,
+     _______    , RGB_VAD   , RGB_SAD   , RGB_HUD    , RGB_SPD   , RGB_RMOD   , TG(_2WERTY)       ,                                           _______       , _______ , _______ , _______ , _______, _______  , _______      ,
      _______    , _______   , _______   , _______    , _______   , _______    , _______       , _______                  , MO(_ADJUST)  , _______       , _______ , _______ , _______ , _______, _______  , _______      ,
                                      TD(MUTE_LAYER2) , _______   , _______    , _______       , _______                  , _______      , _______       , _______ , _______ , TD(ENCODER_LAYER)
   ),
@@ -195,6 +195,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                       _______       , KC_LCTL       , KC_SPC        , KC_SPC        , KC_LGUI       , KC_CAPS       , KC_ENT        , KC_SPC        , KC_LALT       , _______
   )
 };
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        /* KEYBOARD PET STATUS START */
+        case KC_LCTL:
+        case KC_RCTL:
+            if (record->event.pressed) {
+                isSneaking = true;
+            } else {
+                isSneaking = true;
+            }
+            break;
+        case KC_SPC:
+            if (record->event.pressed) {
+                isJumping  = true;
+                showedJump = false;
+            } else {
+                isJumping = false;
+            }
+            break;
+        /* KEYBOARD PET STATUS END */
+    }
+    return process_record_user(keycode, record);
+}
+
+
 
 #if defined(OLED_ENABLE)
 
@@ -868,31 +894,6 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     return false;
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        /* KEYBOARD PET STATUS START */
-        case KC_LCTL:
-        case KC_RCTL:
-            if (record->event.pressed) {
-                isSneaking = true;
-            } else {
-                isSneaking = true;
-            }
-            break;
-        case KC_SPC:
-            if (record->event.pressed) {
-                isJumping  = true;
-                showedJump = false;
-            } else {
-                isJumping = false;
-            }
-            break;
-        /* KEYBOARD PET STATUS END */
-    }
-    return process_record_user(keycode, record);
-}
-
-
 void matrix_scan_user(void) {
     if (is_alt_tab_active) {
         if (timer_elapsed(alt_tab_timer) > 1250) {
@@ -900,6 +901,7 @@ void matrix_scan_user(void) {
             is_alt_tab_active = false;
             }
         }
+
 }
 #endif
 
